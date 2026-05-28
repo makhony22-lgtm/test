@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Маркетинг: тест — часть 2 (вопросы 66–130)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #1a2a3a 0%, #0f1a24 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .quiz-container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .quiz-header {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 1.7rem;
+            background: linear-gradient(135deg, #FFE6B0, #FFB347);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-btn {
+            background: #2e3b46;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .nav-btn:hover {
+            background: #FFB347;
+            color: #1f2e3a;
+            transform: scale(0.97);
+        }
+
+        .progress-badge {
+            background: #2e3b46;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .question-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 2rem;
+            padding: 1.8rem 2rem;
+            margin-bottom: 1.8rem;
+            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.4);
+            transition: all 0.2s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e2a36;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+            border-left: 5px solid #FFB347;
+            padding-left: 1rem;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option {
+            background: #f2f5f9;
+            border-radius: 1.2rem;
+            padding: 0.9rem 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.2s;
+            border: 1.5px solid transparent;
+        }
+
+        .option:hover {
+            background: #e9edf3;
+            transform: translateX(5px);
+        }
+
+        input[type="checkbox"], input[type="radio"] {
+            width: 1.3rem;
+            height: 1.3rem;
+            cursor: pointer;
+            accent-color: #FFB347;
+        }
+
+        .option label {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1f2e3a;
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
+        .multi-hint {
+            font-size: 0.75rem;
+            color: #d97706;
+            background: #fff1e0;
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            margin-top: 1.2rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .btn-check {
+            background: #FFB347;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            color: #1f2e3a;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .btn-check:hover {
+            background: #ff9f1c;
+            transform: scale(0.97);
+        }
+
+        .feedback {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.9rem;
+            background: #f0f0f0;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border-left: 6px solid #28a745;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 6px solid #dc3545;
+            display: block;
+        }
+
+        .submit-area {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .btn-submit {
+            background: #2d6a4f;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 3rem;
+            cursor: pointer;
+            width: 100%;
+            max-width: 320px;
+            transition: all 0.2s;
+            box-shadow: 0 8px 14px rgba(0,0,0,0.2);
+        }
+
+        .btn-submit:hover {
+            background: #1f543e;
+            transform: scale(0.98);
+        }
+
+        .result-card {
+            background: #0f212e;
+            color: white;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+            display: none;
+        }
+
+        .score-text {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #FFB347;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #9aaebf;
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 650px) {
+            .question-card {
+                padding: 1rem 1.2rem;
+            }
+            .question-text {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h1>📊 Маркетинг: тест — часть 2 (вопросы 66–130)</h1>
+        <div class="progress-badge">Всего вопросов: 65</div>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="goToPart1()">⬅ Часть 1 (1–65)</button>
+        <button class="nav-btn" onclick="goToPart3()">Часть 3 (131–195) ➡</button>
+    </div>
+
+    <div id="questionsContainer"></div>
+
+    <div class="submit-area">
+        <button class="btn-submit" id="finalSubmitBtn">✨ Завершить тест (часть 2) ✨</button>
+    </div>
+    <div id="finalResult" class="result-card"></div>
+    <footer>📌 Часть 2 (вопросы 66–130). Ответы сохраняются автоматически.</footer>
+</div>
+
+<script>
+    // Функции перехода между частями с сохранением прогресса
+    function goToPart1() {
+        localStorage.setItem('quiz_part2_answers', JSON.stringify(userSelections));
+        window.location.href = 'index.html';
+    }
+    function goToPart3() {
+        localStorage.setItem('quiz_part2_answers', JSON.stringify(userSelections));
+        window.location.href = 'test_part3.html';
+    }
+
+    // ========== ВОПРОСЫ 66–130 (из вашего файла, продолжение) ==========
+    const QUESTIONS = [
+        { text: "Главными финансовыми контактными аудиториями являются", type: "multi", options: ["Банки", "Инвестиционные компании", "Акционеры", "Страховые компании", "Брокерские фирмы"], correctValues: ["Банки", "Инвестиционные компании", "Акционеры", "Страховые компании", "Брокерские фирмы"] },
+        { text: "Кто относится к контактной аудитории средств массовой информации?", type: "multi", options: ["Газеты", "Журналы", "Телевидение", "Радио", "Интернет-издания", "Блогеры"], correctValues: ["Газеты", "Журналы", "Телевидение", "Радио", "Интернет-издания", "Блогеры"] },
+        { text: "Основные факторы макросреды", type: "multi", options: ["Политико-правовые", "Экономические", "Социокультурные", "Технологические", "Демографические", "Природные"], correctValues: ["Политико-правовые", "Экономические", "Социокультурные", "Технологические", "Демографические", "Природные"] },
+        { text: "Что следует отнести к демографическим факторам при сегментировании рынка?", type: "multi", options: ["Возраст", "Пол", "Размер семьи", "Этап жизненного цикла семьи", "Уровень доходов", "Образование"], correctValues: ["Возраст", "Пол", "Размер семьи", "Этап жизненного цикла семьи", "Уровень доходов", "Образование"] },
+        { text: "Что финансовые контактные аудитории включают?", type: "multi", options: ["Банки", "Акционеров", "Инвестиционные фонды", "Брокерские конторы", "Страховые компании"], correctValues: ["Банки", "Акционеров", "Инвестиционные фонды", "Брокерские конторы", "Страховые компании"] },
+        { text: "Гибкий инструмент маркетинга, поскольку ее можно быстро и легко изменить, учитывая факторы спроса, издержек или конкуренции", type: "single", options: ["Цена", "Товар", "Продвижение", "Место"], correctValues: ["Цена"] },
+        { text: "Все многообразие ценообразующих факторов можно разделить на три группы:", type: "multi", options: ["Факторы спроса", "Факторы издержек", "Факторы конкуренции", "Факторы погоды"], correctValues: ["Факторы спроса", "Факторы издержек", "Факторы конкуренции"] },
+        { text: "Ценовые стратегии можно разделить на 3 группы:", type: "multi", options: ["Стратегии дифференцированного ценообразования", "Стратегии конкурентного ценообразования", "Стратегии ассортиментного ценообразования", "Стратегии монопольных цен"], correctValues: ["Стратегии дифференцированного ценообразования", "Стратегии конкурентного ценообразования", "Стратегии ассортиментного ценообразования"] },
+        { text: "Современный маркетинг обвиняется общественностью в:", type: "multi", options: ["Создании искусственных потребностей", "Манипулировании потребителями", "Навязывании потребительства", "Чрезмерной рекламе", "Ухудшении окружающей среды"], correctValues: ["Создании искусственных потребностей", "Манипулировании потребителями", "Навязывании потребительства", "Чрезмерной рекламе", "Ухудшении окружающей среды"] },
+        { text: "Ранжировка рынков может проводиться по следующим факторам:", type: "multi", options: ["Объём рынка", "Темпы роста", "Ёмкость", "Интенсивность конкуренции", "Уровень доходов потребителей", "Географическое положение"], correctValues: ["Объём рынка", "Темпы роста", "Ёмкость", "Интенсивность конкуренции", "Уровень доходов потребителей", "Географическое положение"] },
+        { text: "Общими критериями сегментирования для потребительских и промышленных рынков являются:", type: "multi", options: ["Географические", "Демографические", "Поведенческие", "Психографические"], correctValues: ["Географические", "Демографические", "Поведенческие"] },
+        { text: "Три основных вида маркетинга, используемых в стратегиях охвата рынка:", type: "multi", options: ["Недифференцированный (масс-маркетинг)", "Дифференцированный (сегментированный)", "Концентрированный (нишевой)", "Интерактивный"], correctValues: ["Недифференцированный (масс-маркетинг)", "Дифференцированный (сегментированный)", "Концентрированный (нишевой)"] },
+        { text: "Основой комплекса маркетинга является...", type: "single", options: ["Товар", "Цена", "Продвижение", "Место"], correctValues: ["Товар"] },
+        { text: "Комплекс маркетинга-микс включает в себя...", type: "multi", options: ["Product (товар)", "Price (цена)", "Place (место/распределение)", "Promotion (продвижение)"], correctValues: ["Product (товар)", "Price (цена)", "Place (место/распределение)", "Promotion (продвижение)"] },
+        { text: "Понятие макросреды отражает - это...", type: "multi", options: ["Совокупность внешних, неконтролируемых факторов", "Политические факторы", "Экономические факторы", "Социокультурные факторы", "Технологические факторы"], correctValues: ["Совокупность внешних, неконтролируемых факторов", "Политические факторы", "Экономические факторы", "Социокультурные факторы", "Технологические факторы"] },
+        { text: "Из перечисленных ниже условий могут быть отнесены к маркетингу:", type: "multi", options: ["Обмен", "Удовлетворение потребностей", "Ориентация на рынок", "Взаимовыгодные отношения", "Целевая направленность"], correctValues: ["Обмен", "Удовлетворение потребностей", "Ориентация на рынок", "Взаимовыгодные отношения", "Целевая направленность"] },
+        { text: "В комплекс маркетинга включаются...", type: "multi", options: ["Товар", "Цена", "Сбыт", "Продвижение", "Люди", "Процесс", "Физическая среда"], correctValues: ["Товар", "Цена", "Сбыт", "Продвижение", "Люди", "Процесс", "Физическая среда"] },
+        { text: "К основным факторам макросреды относятся...", type: "multi", options: ["Политические", "Экономические", "Социальные", "Технологические", "Демографические", "Природные"], correctValues: ["Политические", "Экономические", "Социальные", "Технологические", "Демографические", "Природные"] },
+        { text: "Торговые посредники, покупающие товар у производителя", type: "multi", options: ["Дистрибьюторы", "Оптовики", "Дилеры", "Перепродавцы"], correctValues: ["Дистрибьюторы", "Оптовики", "Дилеры", "Перепродавцы"] },
+        { text: "В маркетинговых исследованиях наблюдение как метод сбора первичной информации характеризуется следующими особенностями", type: "multi", options: ["Фиксация реального поведения", "Пассивность", "Возможность использования технических средств", "Субъективность интерпретации"], correctValues: ["Фиксация реального поведения", "Пассивность", "Возможность использования технических средств", "Субъективность интерпретации"] },
+        { text: "В маркетинговых исследованиях при выборе сегмента существенными критериями являются", type: "multi", options: ["Измеримость", "Доступность", "Ёмкость", "Защищённость от конкуренции", "Соответствие ресурсам"], correctValues: ["Измеримость", "Доступность", "Ёмкость", "Защищённость от конкуренции", "Соответствие ресурсам"] },
+        { text: "В маркетинге покупатель – это субъект, который", type: "single", options: ["Приобретает товар для личного потребления", "Перепродаёт товар", "Производит товар", "Рекламирует товар"], correctValues: ["Приобретает товар для личного потребления"] },
+        { text: "В практике маркетинговых коммуникаций социальная реклама характеризуется следующими утверждениями", type: "multi", options: ["Не ставит коммерческих целей", "Направлена на изменение общественного поведения", "Распространяется на безвозмездной основе", "Всегда платная"], correctValues: ["Не ставит коммерческих целей", "Направлена на изменение общественного поведения", "Распространяется на безвозмездной основе"] },
+        { text: "В практике маркетинга сущность политики цен предприятия заключается в следующем", type: "multi", options: ["Установление и регулирование цен", "Достижение целей предприятия", "Учёт спроса, издержек и конкуренции", "Только максимизация прибыли"], correctValues: ["Установление и регулирование цен", "Достижение целей предприятия", "Учёт спроса, издержек и конкуренции"] },
+        { text: "В практике маркетинга ценовую стратегию «снятия сливок» характеризуют следующие утверждения", type: "multi", options: ["Высокая начальная цена", "Сегмент новаторов", "Постепенное снижение цены", "Максимальная прибыль на единицу товара"], correctValues: ["Высокая начальная цена", "Сегмент новаторов", "Постепенное снижение цены", "Максимальная прибыль на единицу товара"] },
+        { text: "В практике маркетинга первичная информация должна быть собрана для следующих целей", type: "multi", options: ["Для решения конкретной проблемы", "Для проверки гипотез", "Для уточнения портрета потребителя", "Для замера реакции на новый продукт"], correctValues: ["Для решения конкретной проблемы", "Для проверки гипотез", "Для уточнения портрета потребителя", "Для замера реакции на новый продукт"] },
+        { text: "В теории маркетинга личные продажи характеризуют следующими утверждениями", type: "multi", options: ["Прямой диалог", "Высокая стоимость контакта", "Возможность адаптации", "Установление долгосрочных отношений"], correctValues: ["Прямой диалог", "Высокая стоимость контакта", "Возможность адаптации", "Установление долгосрочных отношений"] },
+        { text: "В теории маркетинга к числу пяти основных конкурирующих сил (по М. Портеру) относят следующие", type: "multi", options: ["Угроза новых игроков", "Угроза товаров-заменителей", "Власть поставщиков", "Власть покупателей", "Конкуренция между игроками"], correctValues: ["Угроза новых игроков", "Угроза товаров-заменителей", "Власть поставщиков", "Власть покупателей", "Конкуренция между игроками"] },
+        { text: "В теории маркетинга к элементам экономической среды маркетинга относят следующие", type: "multi", options: ["Уровень доходов", "Инфляция", "Безработица", "Ставки кредитования", "Покупательная способность"], correctValues: ["Уровень доходов", "Инфляция", "Безработица", "Ставки кредитования", "Покупательная способность"] },
+        { text: "В теории маркетинга и поведения потребителей покупательская реакция заключается в выборе", type: "multi", options: ["Товара", "Марки", "Места покупки", "Времени покупки", "Суммы покупки"], correctValues: ["Товара", "Марки", "Места покупки", "Времени покупки", "Суммы покупки"] },
+        { text: "В практике маркетинга маркетинговые исследования являются инструментом, с помощью которого организация может", type: "multi", options: ["Снизить неопределённость", "Выявить рыночные возможности", "Оценить эффективность маркетинга", "Спрогнозировать спрос"], correctValues: ["Снизить неопределённость", "Выявить рыночные возможности", "Оценить эффективность маркетинга", "Спрогнозировать спрос"] },
+        { text: "В практике маркетинга при определении цены с учётом затрат используются следующие методы", type: "multi", options: ["Метод «издержки плюс»", "Метод целевой прибыли", "Метод безубыточности", "Метод конкурентного паритета"], correctValues: ["Метод «издержки плюс»", "Метод целевой прибыли", "Метод безубыточности"] },
+        { text: "В контактные аудитории входят:", type: "multi", options: ["Финансовые", "СМИ", "Государственные", "Местные", "Внутренние (сотрудники)", "Общественные"], correctValues: ["Финансовые", "СМИ", "Государственные", "Местные", "Внутренние (сотрудники)", "Общественные"] },
+        { text: "Реклама, как средство коммуникации отличается от «PR»", type: "multi", options: ["Реклама оплаченная", "PR формирует имидж", "Реклама неперсонализированная", "PR не всегда прямое продвижение"], correctValues: ["Реклама оплаченная", "PR формирует имидж", "Реклама неперсонализированная", "PR не всегда прямое продвижение"] },
+        { text: "Какими принципами следует руководствоваться при организации маркетингового анкетирования", type: "multi", options: ["Ясность вопросов", "Краткость", "Логическая последовательность", "Отсутствие наводящих вопросов", "Репрезентативность выборки"], correctValues: ["Ясность вопросов", "Краткость", "Логическая последовательность", "Отсутствие наводящих вопросов", "Репрезентативность выборки"] },
+        { text: "К числу эффективных каналов распространения рекламы товаров производственного назначения относятся", type: "multi", options: ["Специализированные журналы", "Выставки", "Каталоги", "Директ-мейл", "Интернет-порталы b2b"], correctValues: ["Специализированные журналы", "Выставки", "Каталоги", "Директ-мейл", "Интернет-порталы b2b"] },
+        { text: "К основным средствам продвижения товара относятся:", type: "multi", options: ["Реклама", "Стимулирование сбыта", "PR", "Личные продажи", "Прямой маркетинг"], correctValues: ["Реклама", "Стимулирование сбыта", "PR", "Личные продажи", "Прямой маркетинг"] },
+        { text: "Что из перечисленного является товаром?", type: "multi", options: ["Физические объекты", "Услуги", "Люди (кандидаты)", "Места (курорты)", "Организации", "Идеи"], correctValues: ["Физические объекты", "Услуги", "Люди (кандидаты)", "Места (курорты)", "Организации", "Идеи"] },
+        { text: "Маркетинговые решения на этапе «зрелости» ЖЦТ включают", type: "multi", options: ["Модификация рынка", "Модификация товара", "Модификация комплекса маркетинга", "Защита доли рынка", "Поиск ниш"], correctValues: ["Модификация рынка", "Модификация товара", "Модификация комплекса маркетинга", "Защита доли рынка", "Поиск ниш"] },
+        { text: "К основным тенденциям смены жизненных циклов товаров в современных условиях относятся", type: "multi", options: ["Укорочение ЖЦТ", "Ускорение вывода новых товаров", "Рост числа модных товаров", "Фрагментация рынков"], correctValues: ["Укорочение ЖЦТ", "Ускорение вывода новых товаров", "Рост числа модных товаров", "Фрагментация рынков"] },
+        { text: "Компании обращаются к прямому маркетингу для того, чтобы:", type: "multi", options: ["Установить прямой диалог", "Получить обратную связь", "Персонализировать предложение", "Измерить реакцию", "Сократить издержки"], correctValues: ["Установить прямой диалог", "Получить обратную связь", "Персонализировать предложение", "Измерить реакцию", "Сократить издержки"] },
+        { text: "Преимуществами интерактивного маркетинга для маркетологов являются", type: "multi", options: ["Персонализация", "Двухсторонняя коммуникация", "Измеримость результата", "Низкие затраты на охват", "Таргетинг"], correctValues: ["Персонализация", "Двухсторонняя коммуникация", "Измеримость результата", "Низкие затраты на охват", "Таргетинг"] },
+        { text: "Методы индивидуального маркетинга", type: "multi", options: ["Прямая почтовая рассылка", "Телемаркетинг", "E-mail рассылки", "Маркетинг «один-к-одному»", "CRM-системы"], correctValues: ["Прямая почтовая рассылка", "Телемаркетинг", "E-mail рассылки", "Маркетинг «один-к-одному»", "CRM-системы"] },
+        { text: "Расходы на хранение запаса на складе включают", type: "multi", options: ["Аренду", "Коммунальные платежи", "Оплату труда персонала", "Амортизацию", "Страховку", "Потери от порчи"], correctValues: ["Аренду", "Коммунальные платежи", "Оплату труда персонала", "Амортизацию", "Страховку", "Потери от порчи"] },
+        { text: "Ключевыми факторами, способствующими успеху в сфере организации сети реализации продукции, являются", type: "multi", options: ["Выбор каналов распределения", "Управление взаимоотношениями с посредниками", "Логистическая эффективность", "Мотивация посредников", "Контроль запасов"], correctValues: ["Выбор каналов распределения", "Управление взаимоотношениями с посредниками", "Логистическая эффективность", "Мотивация посредников", "Контроль запасов"] },
+        { text: "Каналом прямого маркетинга является торговля", type: "multi", options: ["По каталогам", "Через интернет", "По телефону", "Через телемагазины", "Прямая продажа от двери"], correctValues: ["По каталогам", "Через интернет", "По телефону", "Через телемагазины", "Прямая продажа от двери"] },
+        { text: "Стратегиями «ценностных дисциплин» (М. Треси, Ф. Вирзема) являются стратегии:", type: "multi", options: ["Операционное совершенство", "Лидерство по продукту", "Интимность с клиентом", "Ценовое лидерство"], correctValues: ["Операционное совершенство", "Лидерство по продукту", "Интимность с клиентом"] },
+        { text: "Товарная марка должна содержать", type: "multi", options: ["Марочное имя", "Марочный знак", "Правовую защиту", "Цену"], correctValues: ["Марочное имя", "Марочный знак", "Правовую защиту"] },
+        { text: "Содержательная система ассоциаций, связанных с определённой маркой товара, включает в себя", type: "multi", options: ["Атрибуты товара", "Выгоды для потребителя", "Ценности бренда", "Культуру бренда", "Характер бренда"], correctValues: ["Атрибуты товара", "Выгоды для потребителя", "Ценности бренда", "Культуру бренда", "Характер бренда"] },
+        { text: "Уровни взаимоотношений компании с потребителем:", type: "multi", options: ["Базовый (только продажа)", "Реагирующий (ответ на жалобы)", "Ответственный (опрос после покупки)", "Активный (проактивное информирование)", "Партнёрский"], correctValues: ["Базовый (только продажа)", "Реагирующий (ответ на жалобы)", "Ответственный (опрос после покупки)", "Активный (проактивное информирование)", "Партнёрский"] },
+        { text: "Для сегментирования международных рынков используются критерии:", type: "multi", options: ["Географические", "Экономические", "Политико-правовые", "Культурные", "Технологические"], correctValues: ["Географические", "Экономические", "Политико-правовые", "Культурные", "Технологические"] },
+        { text: "Основные виды деятельности компании в «цепочке ценности» М. Портера", type: "multi", options: ["Входящая логистика", "Производство", "Исходящая логистика", "Маркетинг и продажи", "Сервис"], correctValues: ["Входящая логистика", "Производство", "Исходящая логистика", "Маркетинг и продажи", "Сервис"] },
+        { text: "Специализация фирм в проведении маркетинговых исследований может заключаться:", type: "multi", options: ["По отраслям", "По методам", "По типам заказчиков", "По географии", "По этапам исследования"], correctValues: ["По отраслям", "По методам", "По типам заказчиков", "По географии", "По этапам исследования"] },
+        { text: "Направления маркетинговых исследований рекламы:", type: "multi", options: ["Предварительное тестирование", "Тестирование в процессе", "Пост-тестирование", "ROI рекламы"], correctValues: ["Предварительное тестирование", "Тестирование в процессе", "Пост-тестирование", "ROI рекламы"] },
+        { text: "Методы сбора данных при проведении опросов с участием интервьюеров или при самостоятельном заполнении анкет:", type: "multi", options: ["Личное интервью", "Телефонный опрос", "Почтовый опрос", "Онлайн-опрос", "Самозаполняемые анкеты"], correctValues: ["Личное интервью", "Телефонный опрос", "Почтовый опрос", "Онлайн-опрос", "Самозаполняемые анкеты"] }
+    ];
+
+    // Состояние ответов пользователя
+    let userSelections = Array(QUESTIONS.length).fill().map(() => []);
+
+    // Загрузка сохранённых ответов
+    const saved = localStorage.getItem('quiz_part2_answers');
+    if (saved) {
+        try {
+            const parsed = JSON.parse(saved);
+            if (Array.isArray(parsed) && parsed.length === QUESTIONS.length) {
+                userSelections = parsed;
+            }
+        } catch(e) {}
+    }
+
+    const container = document.getElementById('questionsContainer');
+    
+    function renderQuestions() {
+        container.innerHTML = '';
+        QUESTIONS.forEach((q, idx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            const qNumber = idx + 66;
+            const multiHint = (q.type === 'multi') ? '<div class="multi-hint">✔️ Возможно несколько правильных ответов</div>' : '';
+            let optionsHtml = '';
+            
+            q.options.forEach(opt => {
+                const isChecked = userSelections[idx]?.includes(opt) || false;
+                if (q.type === 'single') {
+                    optionsHtml += `
+                        <div class="option">
+                            <input type="radio" name="q${idx}" value="${opt.replace(/"/g, '&quot;')}" ${isChecked ? 'checked' : ''}>
+                            <label>${opt}</label>
+                        </div>
+                    `;
+                } else {
+                    optionsHtml += `
+                        <div class="option">
+                            <input type="checkbox" name="q${idx}" value="${opt.replace(/"/g, '&quot;')}" ${isChecked ? 'checked' : ''}>
+                            <label>${opt}</label>
+                        </div>
+                    `;
+                }
+            });
+            
+            const feedbackId = `fb-${idx}`;
+            card.innerHTML = `
+                <div class="question-text">${qNumber}. ${q.text}</div>
+                ${multiHint}
+                <div class="options-list" id="options-list-${idx}">
+                    ${optionsHtml}
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-check" data-idx="${idx}">🔍 Проверить ответ</button>
+                </div>
+                <div id="${feedbackId}" class="feedback"></div>
+            `;
+            container.appendChild(card);
+        });
+        
+        // Привязываем события сохранения
+        for (let i = 0; i < QUESTIONS.length; i++) {
+            const containerDiv = document.querySelector(`#options-list-${i}`);
+            if (!containerDiv) continue;
+            const inputs = containerDiv.querySelectorAll('input');
+            inputs.forEach(inp => {
+                inp.addEventListener('change', (e) => {
+                    const val = inp.value;
+                    const current = userSelections[i];
+                    if (QUESTIONS[i].type === 'single') {
+                        if (inp.checked) {
+                            userSelections[i] = [val];
+                        } else {
+                            userSelections[i] = [];
+                        }
+                    } else {
+                        if (inp.checked) {
+                            if (!current.includes(val)) userSelections[i].push(val);
+                        } else {
+                            const index = current.indexOf(val);
+                            if (index !== -1) userSelections[i].splice(index, 1);
+                        }
+                    }
+                    if (QUESTIONS[i].type === 'multi') userSelections[i] = [...new Set(userSelections[i])];
+                    localStorage.setItem('quiz_part2_answers', JSON.stringify(userSelections));
+                });
+            });
+        }
+        
+        // Кнопки проверки
+        document.querySelectorAll('.btn-check').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = parseInt(btn.getAttribute('data-idx'));
+                checkSingleQuestion(idx);
+            });
+        });
+    }
+    
+    function checkSingleQuestion(qIdx) {
+        const question = QUESTIONS[qIdx];
+        const selected = userSelections[qIdx] || [];
+        const correctValues = question.correctValues;
+        let isCorrect = false;
+        if (question.type === 'single') {
+            isCorrect = (selected.length === 1 && correctValues.includes(selected[0]));
+        } else {
+            const selectedSet = new Set(selected);
+            const correctSet = new Set(correctValues);
+            let allCorrectSelected = true;
+            for (let cv of correctSet) if (!selectedSet.has(cv)) { allCorrectSelected = false; break; }
+            let noExtra = true;
+            for (let sel of selectedSet) if (!correctSet.has(sel)) { noExtra = false; break; }
+            isCorrect = (allCorrectSelected && noExtra);
+        }
+        
+        const fbDiv = document.getElementById(`fb-${qIdx}`);
+        if (isCorrect) {
+            fbDiv.innerHTML = '✅ Верно! Отличные знания.';
+            fbDiv.className = 'feedback correct';
+        } else {
+            const correctAnswersStr = correctValues.join('; ');
+            fbDiv.innerHTML = `❌ Неправильно. Правильный ответ: ${correctAnswersStr}.`;
+            fbDiv.className = 'feedback incorrect';
+        }
+        fbDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    
+    function finalCheck() {
+        let totalCorrect = 0;
+        for (let i = 0; i < QUESTIONS.length; i++) {
+            const q = QUESTIONS[i];
+            const selected = userSelections[i] || [];
+            const correctValues = q.correctValues;
+            let isCorrect = false;
+            if (q.type === 'single') {
+                isCorrect = (selected.length === 1 && correctValues.includes(selected[0]));
+            } else {
+                const selectedSet = new Set(selected);
+                const correctSet = new Set(correctValues);
+                let allCorrect = true;
+                for (let cv of correctSet) if (!selectedSet.has(cv)) { allCorrect = false; break; }
+                let noExtra = true;
+                for (let sel of selectedSet) if (!correctSet.has(sel)) { noExtra = false; break; }
+                isCorrect = (allCorrect && noExtra);
+            }
+            if (isCorrect) totalCorrect++;
+        }
+        const percent = Math.round((totalCorrect / QUESTIONS.length) * 100);
+        const resultDiv = document.getElementById('finalResult');
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `
+            <div class="score-text">🎯 ${totalCorrect} / ${QUESTIONS.length} (${percent}%)</div>
+            <p style="margin-top: 0.5rem;">${percent >= 70 ? '🏆 Поздравляем! Отличный результат!' : '📚 Изучите материал и попробуйте снова.'}</p>
+            <button id="showMistakesBtn" style="background:#FFB347; border:none; padding:0.5rem 1.5rem; border-radius:2rem; font-weight:bold; margin-top:1rem; cursor:pointer;">Показать ошибки</button>
+        `;
+        const showBtn = document.getElementById('showMistakesBtn');
+        if (showBtn) {
+            showBtn.addEventListener('click', () => {
+                for (let i = 0; i < QUESTIONS.length; i++) {
+                    const fbDiv = document.getElementById(`fb-${i}`);
+                    if (!fbDiv) continue;
+                    const selected = userSelections[i] || [];
+                    const correctValues = QUESTIONS[i].correctValues;
+                    let isCorrect = false;
+                    if (QUESTIONS[i].type === 'single') {
+                        isCorrect = (selected.length === 1 && correctValues.includes(selected[0]));
+                    } else {
+                        const selectedSet = new Set(selected);
+                        const correctSet = new Set(correctValues);
+                        let allCorrect = true;
+                        for (let cv of correctSet) if (!selectedSet.has(cv)) { allCorrect = false; break; }
+                        let noExtra = true;
+                        for (let sel of selectedSet) if (!correctSet.has(sel)) { noExtra = false; break; }
+                        isCorrect = (allCorrect && noExtra);
+                    }
+                    if (!isCorrect) {
+                        fbDiv.innerHTML = `❌ Ошибка. Правильный ответ: ${correctValues.join('; ')}.`;
+                        fbDiv.className = 'feedback incorrect';
+                        fbDiv.style.display = 'block';
+                    }
+                }
+                resultDiv.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+    }
+    
+    renderQuestions();
+    document.getElementById('finalSubmitBtn').addEventListener('click', finalCheck);
+</script>
+</body>
+</html>
